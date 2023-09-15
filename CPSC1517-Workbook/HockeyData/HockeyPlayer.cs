@@ -1,4 +1,6 @@
-﻿namespace Hockey.Data
+﻿using Utils;
+
+namespace Hockey.Data
 {
     public class HockeyPlayer
     {
@@ -8,7 +10,7 @@
         private string _birthPlace;
         private DateOnly _dateOfBirth;
         private int _heightInInches;
-        private int _weightInInches;
+        private int _weightInPounds;
 
         //We dont need the following
         //private Position _position;
@@ -35,7 +37,42 @@
 
         }
 
-        //TODO: complete the remaining string properties for homework
+        public string FirstName 
+        { 
+            get
+            {
+                return _firstName;
+            }
+
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("First name cannot be null or empty.");
+                }
+
+                _firstName = value;
+            }
+        }
+
+        public string LastName
+        {
+            get
+            {
+                return _lastName;
+            }
+
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Last name cannot be null or empty.");
+                }
+
+                _lastName = value;
+            }
+        }
+
         public int HeightInInches
         { 
             get
@@ -44,7 +81,7 @@
             }
             set
             {
-                if(value <= 0)
+                if(Utilities.IsZeroOrNegative(value))
                 {
                     throw new ArgumentException("Height must be positive.");
                 }
@@ -53,7 +90,25 @@
             }
         }
 
-        // TODO: complete the remaining int property
+        public int WeightInPounds
+        {
+            get
+            {
+                return _weightInPounds;
+            }
+
+            set
+            {
+                if (!Utilities.IsPositive(value))
+                //OR could do (Utilities.IsPositive(value) == false)
+                //OR could do (Utilities.IsPositive(value) == false)
+                {
+                    throw new ArgumentException("Weight must be positive.");
+                }
+
+                _weightInPounds = value;
+            }
+        }
         public DateOnly DateOfBirth
         {
             get
@@ -63,8 +118,11 @@
 
             set
             { 
-                // TODO: implement a valididy check for dates in the future
-                // Check the documentation for DateOnly
+                if (Utilities.IsInTheFuture(value))
+                {
+                    throw new ArgumentException("Date cannot be in the future.");
+                }
+                
                 _dateOfBirth = value;
             }
         }
@@ -91,20 +149,33 @@
             _lastName = string.Empty;
             _birthPlace = string.Empty;
             _dateOfBirth = new DateOnly();
-            _weightInInches = 0;
+            _weightInPounds = 0;
             _heightInInches = 0;
             Shot = Shot.Left;
             Position = Position.Center;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="firstName"></param>
+        /// <param name="lastName"></param>
+        /// <param name="birthPlace"></param>
+        /// <param name="dateofBirth"></param>
+        /// <param name="weightInPounds"></param>
+        /// <param name="heightInInches"></param>
+        /// <param name="position"></param>
+        /// <param name="shot"></param>
         public HockeyPlayer(string firstName, string lastName, string birthPlace, DateOnly dateofBirth,
             int weightInPounds, int heightInInches, Position position = Position.Center, Shot shot = Shot.Left)
         {
+            FirstName = firstName;
+            LastName = lastName;
             BirthPlace = birthPlace;
+            WeightInPounds = weightInPounds;
             HeightInInches = heightInInches;
             Position = position;
             Shot = shot;
-            //TODO: assign the remaining properties once you've completed them
         }
 
     }
