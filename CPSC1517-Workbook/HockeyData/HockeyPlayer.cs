@@ -174,6 +174,7 @@ namespace Hockey.Data
             BirthPlace = birthPlace;
             WeightInPounds = weightInPounds;
             HeightInInches = heightInInches;
+            DateOfBirth = dateofBirth;
             Position = position;
             Shot = shot;
         }
