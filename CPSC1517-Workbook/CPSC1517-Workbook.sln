@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HockeyData", "HockeyData\Ho
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "Utilities\Utilities.csproj", "{9ED29C71-C65F-4641-8DFC-21E64F86537E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeyConsoleApp", "HockeyConsoleApp\HockeyConsoleApp.csproj", "{1666B3E2-7EB7-4E70-B709-91327167DE8F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeyTestProject", "UnitTest1\HockeyTestProject.csproj", "{B27DF7D7-76CA-47AA-827A-7D97E8874D94}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{9ED29C71-C65F-4641-8DFC-21E64F86537E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9ED29C71-C65F-4641-8DFC-21E64F86537E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9ED29C71-C65F-4641-8DFC-21E64F86537E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1666B3E2-7EB7-4E70-B709-91327167DE8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1666B3E2-7EB7-4E70-B709-91327167DE8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1666B3E2-7EB7-4E70-B709-91327167DE8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1666B3E2-7EB7-4E70-B709-91327167DE8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B27DF7D7-76CA-47AA-827A-7D97E8874D94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B27DF7D7-76CA-47AA-827A-7D97E8874D94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B27DF7D7-76CA-47AA-827A-7D97E8874D94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B27DF7D7-76CA-47AA-827A-7D97E8874D94}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
