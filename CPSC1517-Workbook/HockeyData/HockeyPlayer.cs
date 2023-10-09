@@ -11,10 +11,7 @@ namespace Hockey.Data
         private DateOnly _dateOfBirth;
         private int _heightInInches;
         private int _weightInPounds;
-
-        //We dont need the following
-        //private Position _position;
-        //private Shot _shot;
+        private int _jerseyNumber;
 
         // properties
         public string BirthPlace
@@ -24,33 +21,33 @@ namespace Hockey.Data
                 return _birthPlace;
             }
 
-            set
+            private set
             {
-                if (string.IsNullOrWhiteSpace(value)) 
+                if (Utilities.IsNullEmptyOrWhiteSpace(value))
                 {
-                    throw new ArgumentException("Birth place cannot be null or empty.");                
+                    throw new ArgumentException("Birth place cannot be null or empty.");
                 }
 
-                //if we get here, then no exception happened
+                // if we get here, then no exception happened
                 _birthPlace = value;
             }
-
         }
 
-        public string FirstName 
-        { 
+        public string FirstName
+        {
             get
             {
                 return _firstName;
             }
 
-            set
+            private set
             {
-                if (string.IsNullOrWhiteSpace(value))
+                if (Utilities.IsNullEmptyOrWhiteSpace(value))
                 {
                     throw new ArgumentException("First name cannot be null or empty.");
                 }
 
+                // if we get here, then no exception happened
                 _firstName = value;
             }
         }
@@ -62,26 +59,28 @@ namespace Hockey.Data
                 return _lastName;
             }
 
-            set
+            private set
             {
-                if (string.IsNullOrWhiteSpace(value))
+                if (Utilities.IsNullEmptyOrWhiteSpace(value))
                 {
                     throw new ArgumentException("Last name cannot be null or empty.");
                 }
 
+                // if we get here, then no exception happened
                 _lastName = value;
             }
         }
 
         public int HeightInInches
-        { 
+        {
             get
             {
-                return _heightInInches; 
+                return _heightInInches;
             }
-            set
+
+            private set
             {
-                if(Utilities.IsZeroOrNegative(value))
+                if (Utilities.IsZeroOrNegative(value))
                 {
                     throw new ArgumentException("Height must be positive.");
                 }
@@ -97,11 +96,9 @@ namespace Hockey.Data
                 return _weightInPounds;
             }
 
-            set
+            private set
             {
                 if (!Utilities.IsPositive(value))
-                //OR could do (Utilities.IsPositive(value) == false)
-                //OR could do (Utilities.IsPositive(value) == false)
                 {
                     throw new ArgumentException("Weight must be positive.");
                 }
@@ -116,44 +113,26 @@ namespace Hockey.Data
                 return _dateOfBirth;
             }
 
-            set
-            { 
+            private set
+            {
                 if (Utilities.IsInTheFuture(value))
                 {
-                    throw new ArgumentException("Date cannot be in the future.");
+                    throw new ArgumentException("Date of birth cannot be in the future.");
                 }
-                
+
                 _dateOfBirth = value;
             }
         }
 
-        // Auto-implemented properties (they dont need fields)
-        // you use auto impletned propeties when you have no logic to apply to getting and setting
+        // Auto-implemented property
         public Position Position { get; set; }
 
         /// <summary>
-        /// Represents the shot hand for the player
+        /// Represents the shot hand for a player
         /// </summary>
         public Shot Shot { get; set; }
 
         // constructors
-        // they are different from redgular methods because they don't need a return type and takes no parameters
-
-
-        /// <summary>
-        /// Creates a default instance of a hockey player
-        /// </summary>
-        public HockeyPlayer()
-        {
-            _firstName = string.Empty;
-            _lastName = string.Empty;
-            _birthPlace = string.Empty;
-            _dateOfBirth = new DateOnly();
-            _weightInPounds = 0;
-            _heightInInches = 0;
-            Shot = Shot.Left;
-            Position = Position.Center;
-        }
 
         /// <summary>
         /// 
@@ -161,23 +140,50 @@ namespace Hockey.Data
         /// <param name="firstName"></param>
         /// <param name="lastName"></param>
         /// <param name="birthPlace"></param>
-        /// <param name="dateofBirth"></param>
+        /// <param name="dateOfBirth"></param>
         /// <param name="weightInPounds"></param>
         /// <param name="heightInInches"></param>
         /// <param name="position"></param>
         /// <param name="shot"></param>
-        public HockeyPlayer(string firstName, string lastName, string birthPlace, DateOnly dateofBirth,
-            int weightInPounds, int heightInInches, Position position = Position.Center, Shot shot = Shot.Left)
+        public HockeyPlayer(string firstName, string lastName, string birthPlace, DateOnly dateOfBirth,
+            int weightInPounds, int heightInInches, int jerseyNumber, Position position = Position.Center, Shot shot = Shot.Left)
         {
             FirstName = firstName;
             LastName = lastName;
             BirthPlace = birthPlace;
-            WeightInPounds = weightInPounds;
             HeightInInches = heightInInches;
-            DateOfBirth = dateofBirth;
+            WeightInPounds = weightInPounds;
+            JerseyNumber = jerseyNumber;
+            DateOfBirth = dateOfBirth;
             Position = position;
             Shot = shot;
         }
 
+        public int JerseyNumber
+        {
+            get
+            {
+                return _jerseyNumber;
+            }
+
+            set
+            {
+                if (value < 1 || value > 98)
+                {
+                    throw new ArgumentOutOfRangeException("Jersey number must be between 1 and 98.",
+                        new ArgumentException());
+                }
+
+                _jerseyNumber = value;
+            }
+        }
+
+        public int Age => (DateOnly.FromDateTime(DateTime.Now).DayNumber - DateOfBirth.DayNumber) / 365;
+
+        // Override of ToString
+        public override string ToString()
+        {
+            return $"{FirstName} {LastName}";
+        }
     }
 }

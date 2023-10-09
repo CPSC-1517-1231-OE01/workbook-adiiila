@@ -1,0 +1,47 @@
+﻿@page "/random-number"
+
+<h3>MaxRandomNumber</h3>
+<p>This page will render a random number between 1 and a max value</p>
+<p>@feedbackMessage</p>
+
+<fieldset>
+    <div class="mb-3">
+        <label class="form-label" for="maxNumber">Max Number Value</label>
+        <input class="form-control" type="text" id="maxNumber" @bind="MaxNumber" />
+    </div>
+    <div class="mb-3">
+        <button type="button" class="btn btn-primary" @onclick="GenerateRandomNumber">Generate Number</button>
+    </div>
+    <div>
+        <button type="button" class="btn btn-dark" @onclick="ClearMessage">Clear Output</button>
+    </div>
+</fieldset>
+
+@code {
+    private bool IsError { get; set; } = false;
+    private int MaxNumber { get; set; } = 0;
+    private int randomNumber;
+    private string? feedbackMessage;
+
+    private void GenerateRandomNumber()
+    {
+        if( MaxNumber > 0)
+        {
+            IsError = false;
+            randomNumber = Random.Shared.Next(1, MaxNumber + 1);
+            feedbackMessage = $"Your random number is {randomNumber}";
+        }
+
+        else
+        {
+            IsError = true;
+            feedbackMessage = "Max Number Value must be greater than 0";
+        }
+
+    }
+
+    private void ClearMessage()
+    {
+        feedbackMessage = null;
+    }
+}
