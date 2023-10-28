@@ -1,6 +1,8 @@
 using FluentAssertions;
 using Hockey.Data;
 using System.Collections;
+using System.Globalization;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Hockey.Test
 {
@@ -9,14 +11,14 @@ namespace Hockey.Test
         // Constants for a test player
         const string FirstName = "Connor";
         const string LastName = "Brown";
-        const string BirthPlace = "Toronto, ON, CAN";
+        const string BirthPlace = "Toronto-ON-CAN";
         const int HeightInInches = 72;
         const int WeightInPounds = 188;
         const int JerseyNumber = 28;
         const Position PlayerPosition = Position.Center;
         const Shot PlayerShot = Shot.Left;
         static readonly DateOnly DateOfBirth = new DateOnly(1994, 01, 14);
-        const string ToStringValue = $"{FirstName} {LastName}";
+        string ToStringValue = $"{FirstName},{LastName},{JerseyNumber},{PlayerPosition},{PlayerShot},{HeightInInches},{WeightInPounds},Jan-14-1994,{BirthPlace}";
         readonly int Age = (DateOnly.FromDateTime(DateTime.Now).DayNumber - DateOfBirth.DayNumber) / 365;
 
         //[Fact]
@@ -135,6 +137,63 @@ namespace Hockey.Test
             actual = player.ToString();
 
             actual.Should().Be(ToStringValue);
+        }
+
+
+        [Fact]
+        public void HockeyPlayer_Parse_ParsesCorrectly()
+        {
+            HockeyPlayer actual;
+            //string line = $"{FirstName} {LastName},{JerseyNumber},{PlayerPosition},{PlayerShot},{HeightInInches},{WeightInPounds},{DateOfBirth.ToString("MMM-dd-yyyy")},{BirthPlace}";
+
+            actual = HockeyPlayer.Parse(ToStringValue);
+
+            actual.Should().BeOfType<HockeyPlayer>();
+            actual.Should().NotBeNull();
+        }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData(null)]
+        public void HockeyPlayer_Parse_ThrowsForNullEmptyOrWhiteSpace(string line) 
+        {
+            Action act = () => HockeyPlayer.Parse(line);
+
+            act.Should().Throw<ArgumentNullException>().WithMessage("Line cannot be empty.");
+        }
+
+        [Fact]
+        public void HockeyPlayer_Parse_ThrowsForInvalidNumberOfFields()
+        {
+            string line = "one";
+
+            Action act = () => HockeyPlayer.Parse(line);
+
+            act.Should().Throw<InvalidDataException>().WithMessage("Incorrect number of fields");
+        }
+
+        [Fact]
+        public void HockeyPlayer_Parse_ThrowsForFormatError()
+        {
+            string line = "one,two,three,four,five,six,seven,eight,nine";
+
+            Action act = () => HockeyPlayer.Parse(line);
+
+            // Asterisk is a wildcard to ensure the 
+            act.Should().Throw<FormatException>().WithMessage("Error parsing line*");
+        }
+
+        [Fact]
+        public void HockeyPlayer_TryParse_ParsesSucessfully()
+        {
+            HockeyPlayer? actual;
+            bool result;
+
+            result = HockeyPlayer.TryParse(ToStringValue, out actual);
+
+            result.Should().BeTrue();
+            actual.Should().NotBeNull();
         }
     }
 }

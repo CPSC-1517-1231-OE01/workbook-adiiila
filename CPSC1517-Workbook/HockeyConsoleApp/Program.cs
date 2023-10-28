@@ -15,11 +15,10 @@ Console.WriteLine("Welcome to the HockeyPlayer Test App");
 //};
 
 //greedy constructor
-HockeyPlayer player3 = new HockeyPlayer("Bobby", "Orr", "Parry Sound, ON", new DateOnly(1998, 7, 8),
-    196, 73, Position.Defense, Shot.Right);
+//HockeyPlayer player3 = new HockeyPlayer("Bobby", "Orr", "Parry Sound, ON", new DateOnly(1998, 7, 8), 196, 73, Position.Defense, Shot.Right);
 
 //output
 //Console.WriteLine($"The player's name is {player1.FirstName} {player1.LastName} and they are born {player1.DateOfBirth}.");
 //Console.WriteLine($"The player's name is {player2.FirstName} {player2.LastName} and they are born {player2.DateOfBirth}.");
-Console.WriteLine(player3);
-Console.WriteLine($"The player's name is {player3.FirstName} {player3.LastName} and they are born {player3.DateOfBirth}.");
+//Console.WriteLine(player3);
+//Console.WriteLine($"The player's name is {player3.FirstName} {player3.LastName} and they are born {player3.DateOfBirth}.");

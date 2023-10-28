@@ -1,0 +1,32 @@
+﻿@page "/service"
+
+<h3>ServiceFormPage</h3>
+<fieldset class="form-group card p-3 mb-3">
+    <legend>Contact Information</legend>
+    <div class="mb-3">
+        <label class="form-label" for="contact-name">Contact Name:</label>
+        <input class="form-control" type="text" id="contact-name" required/>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="phone-number">Phone Number</label>
+        <input class="form-control" type="text" id="phone-number" required/>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="number-of-years">Number of Years as Customer:</label>
+        <input class="form-control" type="number" id="contact-name" min="0" step="1" required/>
+    </div>
+</fieldset>
+
+<fieldset class="form-group card p-3 mb-3">
+    <legend>Service Information</legend>
+    <div class="form-check">
+
+    </div>
+    <input class="form-check-input" type="radio" name="service-type" id="internet"/>
+
+</fieldset>
+
+@code {
+
+
+}
